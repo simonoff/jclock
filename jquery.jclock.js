@@ -105,16 +105,22 @@
      var dY = d.getFullYear();
      var d1 = new Date(dY,0,1,0,0,0,0); 
      var d2 = new Date(dY,6,1,0,0,0,0);
-     var d1a = new Date((d1.toUTCString()).replace(" GMT",""));
-     var d2a = new Date((d2.toUTCString()).replace(" GMT",""));
+     if ( jQuery.support.opacity ) {
+        var replace_str = " GMT";
+     }
+     else {
+        var replace_str = " UTC";
+     }
+     var d1a = new Date((d1.toUTCString()).replace(replace_str,""));
+     var d2a = new Date((d2.toUTCString()).replace(replace_str,""));
      var o1 = (d1-d1a)/3600000;
      var o2 = (d2-d2a)/3600000;
      var r = 0;
      if (o1!=o2) {
           d.setHours(0);d.setMinutes(0);d.setSeconds(0);d.setMilliseconds(0);
-          var da = new Date((d.toUTCString()).replace(" GMT",""));
-          o3 = ( d-da )/3600000;
-          r = ( o3==o1 ) ? 0 : 1;
+          var da = new Date((d.toUTCString()).replace(replace_str,""));
+          o3 = ( d - da )/3600000;
+          r = ( o3 == o1 ) ? 0 : 1;
      }
      return r;
   }
